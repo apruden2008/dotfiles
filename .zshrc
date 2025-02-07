@@ -77,8 +77,6 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   git 
   fzf
-  zsh-autosuggestions
-  zsh-syntax-highlighting
 )
 
 # Set default FZF command to rg
