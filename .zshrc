@@ -106,29 +106,24 @@ alias todo="$EDITOR ~/vimwiki/Tasks.wiki"
 alias tk="tmux kill-server"
 alias config="$(which git) --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
-# Node Version Manager - works with both nvm and n
-[[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
-[[ -s "$HOME/.nvm/bash_completion" ]] && source "$HOME/.nvm/bash_completion"
+# Rust configuration
+. "$HOME/.cargo/env"
 
-# Homebrew - handle both macOS (Apple Silicon & Intel) and Linux paths
+# Node.js and nvm configuration
+export NVM_DIR="$HOME/.nvm"
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+[[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Set default Node.js version
+nvm use --lts
+
+# Package manager configuration
 if [[ "$(uname)" == "Darwin" ]]; then
-    # macOS paths
+    # macOS: Use Homebrew
     if [[ -x "/opt/homebrew/bin/brew" ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
-        # Load completions only if directories exist
-        if [[ -d /usr/local/share/zsh/site-functions ]]; then
-            FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
-        elif [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
-            FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
-        fi
     elif [[ -x "/usr/local/bin/brew" ]]; then
         eval "$(/usr/local/bin/brew shellenv)"
-        FPATH="/usr/local/share/zsh/site-functions:${FPATH}"
-    fi
-elif [[ "$(uname)" == "Linux" ]]; then
-    # Linux paths (if Homebrew is installed)
-    if [[ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
 fi
 
