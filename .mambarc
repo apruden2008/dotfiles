@@ -5,3 +5,4 @@ envs_dirs:
   - ~/micromamba/envs
 pkgs_dirs:
   - ~/micromamba/pkgs
+root_prefix: ~/micromamba
