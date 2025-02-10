@@ -117,6 +117,12 @@ export NVM_DIR="$HOME/.nvm"
 # Set default Node.js version
 nvm use --lts
 
+# Micromamba configuration
+export MAMBA_ROOT_PREFIX="$HOME/micromamba"
+export MAMBA_EXE="$MAMBA_ROOT_PREFIX/bin/micromamba"
+export PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"
+eval "$(micromamba shell hook -s zsh)"
+
 # Package manager configuration
 if [[ "$(uname)" == "Darwin" ]]; then
     # macOS: Use Homebrew
