@@ -1,5 +1,4 @@
 " TODO 
-" refresh new helptags on start
 
 " Don't try to be vi compatible
 set nocompatible
@@ -338,8 +337,8 @@ augroup filetype_txt
 
 augroup END
 " }}}
-
 " Vimwiki file settings --------------- {{{
+
 augroup vimwiki_vim
 " Initialize wikis
 

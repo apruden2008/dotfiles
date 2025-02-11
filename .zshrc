@@ -9,6 +9,9 @@ export PATH="$HOME/bin:$PATH"
 [[ -d "/usr/local/bin" ]] && export PATH="/usr/local/bin:$PATH"
 [[ -d "/opt/homebrew/bin" ]] && export PATH="/opt/homebrew/bin:$PATH"
 
+export EDITOR=vim
+export VISUAL=vim  # Ensures Vim is used for GUI apps too
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -64,16 +67,6 @@ plugins=(git fzf)
     source $ZSH/oh-my-zsh.sh
 } &>/dev/null
 
-# 7. The rest of your configurations
-# Editor settings - more flexible EDITOR setting
-if command -v nvim >/dev/null 2>&1; then
-  export EDITOR='nvim'
-elif command -v vim >/dev/null 2>&1; then
-  export EDITOR='vim'
-else
-  export EDITOR='vi'
-fi
-
 # User configuration
 
 # Manually define the path to man pages (usually not needed)
@@ -120,7 +113,6 @@ nvm use --lts
 # Micromamba configuration
 export MAMBA_ROOT_PREFIX="$HOME/micromamba"
 export PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"
-eval "$(micromamba shell hook -s zsh)"
 
 # Package manager configuration
 if [[ "$(uname)" == "Darwin" ]]; then
