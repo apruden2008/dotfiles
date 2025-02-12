@@ -116,6 +116,7 @@ nvm use --lts
 # Micromamba configuration
 export MAMBA_ROOT_PREFIX="$HOME/micromamba"
 export PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"
+eval "$(micromamba shell hook --shell=zsh)"
 
 # Package manager configuration
 if [[ "$(uname)" == "Darwin" ]]; then
