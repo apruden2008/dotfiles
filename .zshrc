@@ -25,6 +25,9 @@ plugins=(
   fzf
 )
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # Set default FZF command to rg
 export FZF_DEFAULT_COMMAND='rg'
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
