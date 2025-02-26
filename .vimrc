@@ -96,6 +96,7 @@ set listchars=tab:▸\ ,eol:¬
 " set list " To enable by default
 
 map <leader>lc :set list!<CR> " Toggle tabs and EOL
+map <leader>nn :set number!<CR> " Toggle line numbers on and off
 
 " Color scheme (terminal)
 set t_Co=256
