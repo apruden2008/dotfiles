@@ -95,9 +95,6 @@ set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default:
 " set list " To enable by default
 
-map <leader>lc :set list!<CR> " Toggle tabs and EOL
-map <leader>nn :set number!<CR> " Toggle line numbers on and off
-
 " Color scheme (terminal)
 set t_Co=256
 set background=dark
@@ -178,6 +175,9 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
 " Toggle line numbers
 nnoremap <leader>N :setlocal number!<CR>
 
+" Toggle tabs and EOL
+nnoremap <leader>lc :set list!<CR> 
+
 " Delete line and paste below/above in one keystroke
 nnoremap - ddp
 nnoremap _ ddkP
@@ -199,6 +199,9 @@ nnoremap <leader>w <c-w>w
 
 " Open last buffer in a horizontal split [TODO]
 nnoremap <leader>l :<c-u>execute "rightbelow split " . bufname("#")<cr>
+"
+" Create a new buffer and open it in a vertical split
+nnoremap <leader>vs :rightbelow vnew<CR>
 
 " Easy return to normal mode from insert mode
 inoremap jk <esc>
