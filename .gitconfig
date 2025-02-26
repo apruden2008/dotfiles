@@ -8,8 +8,6 @@
 	email = apruden2008@gmail.com
 [core]
 	editor = vim
-[credential]
-	helper = osxkeychain
 [pull]
 	rebase = false
 [http]
