@@ -361,7 +361,12 @@ augroup vimwiki_vim
   let wiki_classnotes.syntax = 'markdown'
   let wiki_classnotes.ext = '.wiki'
 
-  let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes]
+  let wiki_p11 = {}
+  let wiki_p11.path = '~/vimwiki/p11'
+  let wiki_p11.syntax = 'markdown'
+  let wiki_p11.ext = '.wiki'
+
+  let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes, wiki_p11]
 
   " Don't force all .md files to be vimwiki
   let g:vimwiki_global_ext = 0 
