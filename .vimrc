@@ -341,6 +341,7 @@ augroup filetype_txt
 
 augroup END
 " }}}
+
 " Vimwiki file settings --------------- {{{
 
 augroup vimwiki_vim
@@ -361,7 +362,12 @@ augroup vimwiki_vim
   let wiki_classnotes.syntax = 'markdown'
   let wiki_classnotes.ext = '.wiki'
 
-  let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes]
+  let wiki_p11 = {}
+  let wiki_p11.path = '~/vimwiki/p11'
+  let wiki_p11.syntax = 'markdown'
+  let wiki_p11.ext = '.wiki'
+
+  let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes, wiki_p11]
 
   " Don't force all .md files to be vimwiki
   let g:vimwiki_global_ext = 0 
@@ -413,8 +419,9 @@ augroup filetype_vim
 augroup END
 " }}}"
 
-" Aleo-specific -------------- {{{
+" work-specific -------------- {{{
 
+" Aleo
 autocmd BufNewFile  *_update.wiki 0r ~/Desktop/Career/Aleo/update_template.md
 autocmd BufNewFile  *_jd.md 0r ~/Desktop/Career/Aleo/Recruiting/jd_template.md
 autocmd BufNewFile  *_prd.md 0r ~/Desktop/Career/Aleo/Product/prd_template.md
@@ -422,6 +429,8 @@ autocmd BufNewFile  *_interview.wiki 0r ~/Desktop/Career/Aleo/Recruiting/intervi
 autocmd BufNewFile  *_leader_weekly.wiki 0r ~/Desktop/Career/Aleo/leader_weekly.md
 autocmd BufNewFile  *_call_notes.wiki 0r ~/Desktop/Career/Aleo/call_notes.md
 
+" P11
+autocmd BufNewFile  *_init.wiki 0r ~/Desktop/Career/P11/initial_counseling_template.md
 
 iabbrev update_item ### Item ###<cr>* **Summary**: <cr><bs>* **Next Steps**: <cr><bs>* **Recommendation**: 
 
