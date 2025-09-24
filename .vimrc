@@ -13,7 +13,7 @@ execute pathogen#infect()
 filetype plugin on
 
 " Turn on syntax highlighting
-syntax on
+syntax enable
 
 " For plugins to load correctly
 filetype plugin indent on
@@ -100,9 +100,11 @@ set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-" put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
-" in ~/.vim/colors/ and uncomment:
-colorscheme solarized
+" let g:seoul256_background = 235
+colo solarized
+" colorscheme seoul256
+
+" let g:airline_theme = 'simple'   " or 'luna', 'base16', etc.
 
 " ALEX CUSTOMIZATION
 
