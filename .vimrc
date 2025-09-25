@@ -13,7 +13,7 @@ execute pathogen#infect()
 filetype plugin on
 
 " Turn on syntax highlighting
-syntax on
+syntax enable
 
 " For plugins to load correctly
 filetype plugin indent on
@@ -100,9 +100,11 @@ set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-" put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
-" in ~/.vim/colors/ and uncomment:
-colorscheme solarized
+" let g:seoul256_background = 235
+colo solarized
+" colorscheme seoul256
+
+" let g:airline_theme = 'simple'   " or 'luna', 'base16', etc.
 
 " ALEX CUSTOMIZATION
 
@@ -341,6 +343,7 @@ augroup filetype_txt
 
 augroup END
 " }}}
+
 " Vimwiki file settings --------------- {{{
 
 augroup vimwiki_vim
@@ -418,8 +421,9 @@ augroup filetype_vim
 augroup END
 " }}}"
 
-" Aleo-specific -------------- {{{
+" work-specific -------------- {{{
 
+" Aleo
 autocmd BufNewFile  *_update.wiki 0r ~/Desktop/Career/Aleo/update_template.md
 autocmd BufNewFile  *_jd.md 0r ~/Desktop/Career/Aleo/Recruiting/jd_template.md
 autocmd BufNewFile  *_prd.md 0r ~/Desktop/Career/Aleo/Product/prd_template.md
@@ -427,6 +431,8 @@ autocmd BufNewFile  *_interview.wiki 0r ~/Desktop/Career/Aleo/Recruiting/intervi
 autocmd BufNewFile  *_leader_weekly.wiki 0r ~/Desktop/Career/Aleo/leader_weekly.md
 autocmd BufNewFile  *_call_notes.wiki 0r ~/Desktop/Career/Aleo/call_notes.md
 
+" P11
+autocmd BufNewFile  *_init.wiki 0r ~/Desktop/Career/P11/initial_counseling_template.md
 
 iabbrev update_item ### Item ###<cr>* **Summary**: <cr><bs>* **Next Steps**: <cr><bs>* **Recommendation**: 
 
