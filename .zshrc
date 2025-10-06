@@ -101,6 +101,7 @@ fi
 alias todo="$EDITOR ~/vimwiki/Tasks.wiki"
 alias tk="tmux kill-server"
 alias config="$(which git) --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias ctags='$(brew --prefix)/bin/ctags' # replace BSD default with universal ctags
 
 # Rust configuration
 . "$HOME/.cargo/env"
