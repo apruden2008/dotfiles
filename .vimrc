@@ -252,6 +252,22 @@ iabbrev __green_check ✅
 " Automatically save new files
 " autocmd BufNewFile * :write
 
+" vim-gutentags configuration ----------------- {{{
+" --- VIM-GUTENTAGS CONFIGURATION ---
+
+" 1. Tell Gutentags to use a central cache directory
+" This prevents 'tags' files from cluttering every project root.
+" It will store tags in ~/.cache/tags
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" 2. Always generate/update tags when a file is written/saved (recommended)
+let g:gutentags_generate_on_write = 1
+
+" 3. Show the status in the Vim status line (optional, but helpful)
+set statusline+=%{gutentags#statusline()}
+
+" }}}
+
 " Language-specific settings ----------------- {{{
 " Easy comments for Javascript and Python files
 augroup filetype_js
