@@ -383,7 +383,6 @@ augroup vimwiki_vim
   let wiki_classnotes.path = '~/vimwiki/classnotes'
   let wiki_classnotes.syntax = 'markdown'
   let wiki_classnotes.ext = '.wiki'
-  let wiki_classnotes
   let wiki_classnotes.auto_tags = 1
   let wiki_classnotes.auto_toc = 1
 
