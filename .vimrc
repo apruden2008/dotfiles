@@ -369,29 +369,29 @@ augroup vimwiki_vim
   let wiki_personal.path = '~/vimwiki/'
   let wiki_personal.syntax = 'markdown'
   let wiki_personal.ext = '.wiki' 
-  let wiki_personal.auto_tags = 1
-  let wiki_personal.auto_toc = 1
+"  let wiki_personal.auto_tags = 1
+"  let wiki_personal.auto_toc = 1
 
   let wiki_aleo = {}
   let wiki_aleo.path = '~/vimwiki/aleo'
   let wiki_aleo.syntax = 'markdown'
   let wiki_aleo.ext = '.wiki' 
-  let wiki_aleo.auto_tags = 1
-  let wiki_aleo.auto_toc = 1
+"  let wiki_aleo.auto_tags = 1
+"  let wiki_aleo.auto_toc = 1
 
   let wiki_classnotes = {}
   let wiki_classnotes.path = '~/vimwiki/classnotes'
   let wiki_classnotes.syntax = 'markdown'
   let wiki_classnotes.ext = '.wiki'
-  let wiki_classnotes.auto_tags = 1
-  let wiki_classnotes.auto_toc = 1
+"  let wiki_classnotes.auto_tags = 1
+"  let wiki_classnotes.auto_toc = 1
 
   let wiki_p11 = {}
   let wiki_p11.path = '~/vimwiki/p11'
   let wiki_p11.syntax = 'markdown'
   let wiki_p11.ext = '.wiki'
-  let wiki_p11.auto_tags = 1
-  let wiki_p11.auto_toc = 1
+"  let wiki_p11.auto_tags = 1
+"  let wiki_p11.auto_toc = 1
 
   let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes, wiki_p11]
 
