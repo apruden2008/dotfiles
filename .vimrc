@@ -373,7 +373,7 @@ augroup vimwiki_vim
   let wiki_personal.auto_toc = 1
 
   let wiki_aleo = {}
-  let wiki_aleo.path = '~/Desktop/Career/Aleo/'
+  let wiki_aleo.path = '~/vimwiki/aleo'
   let wiki_aleo.syntax = 'markdown'
   let wiki_aleo.ext = '.wiki' 
   let wiki_aleo.auto_tags = 1
