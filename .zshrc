@@ -98,7 +98,7 @@ fi
 # For a full list of active aliases, run `alias`.
 
 # Custom Aliases - using command checks
-alias todo="$EDITOR ~/vimwiki/Tasks.wiki"
+alias todo="$EDITOR ~/vimwiki/Tasks.md"
 alias tk="tmux kill-server"
 alias config="$(which git) --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias ctags='$(brew --prefix)/bin/ctags' # replace BSD default with universal ctags

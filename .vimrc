@@ -365,10 +365,10 @@ augroup END
 augroup vimwiki_vim
 " Initialize wikis
 
-  let wiki_personal = {}
-  let wiki_personal.path = '~/vimwiki/'
-  let wiki_personal.syntax = 'markdown'
-  let wiki_personal.ext = '.wiki' 
+  let wiki_personal = {
+        \ 'path': '~/vimwiki',
+        \ 'syntax': 'markdown',
+        \ 'ext': '.md'}
 "  let wiki_personal.auto_tags = 1
 "  let wiki_personal.auto_toc = 1
 
@@ -379,12 +379,12 @@ augroup vimwiki_vim
 "  let wiki_aleo.auto_tags = 1
 "  let wiki_aleo.auto_toc = 1
 
-  let wiki_classnotes = {}
-  let wiki_classnotes.path = '~/vimwiki/classnotes'
-  let wiki_classnotes.syntax = 'markdown'
-  let wiki_classnotes.ext = '.wiki'
-"  let wiki_classnotes.auto_tags = 1
-"  let wiki_classnotes.auto_toc = 1
+  let wiki_classnotes = {
+    \ 'path': '~/vimwiki/classnotes/',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md'}
+"  \ 'auto_tags': 1,
+"  \ 'auto_toc': 1}
 
   let wiki_p11 = {}
   let wiki_p11.path = '~/vimwiki/p11'
