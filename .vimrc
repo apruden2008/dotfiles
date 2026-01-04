@@ -263,8 +263,10 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 " 2. Always generate/update tags when a file is written/saved (recommended)
 let g:gutentags_generate_on_write = 1
 
-" 3. Show the status in the Vim status line (optional, but helpful)
-set statusline+=%{gutentags#statusline()}
+" 3. Show the status in the Vim status line (optional, but helpful) TODO set
+if exists('*gutentags#statusline')
+    set statusline+=%{gutentags#statusline()}
+endif
 
 " }}}
 
@@ -398,6 +400,8 @@ augroup vimwiki_vim
   " Don't force all .md files to be vimwiki
   let g:vimwiki_global_ext = 0 
 
+  autocmd!
+
   " Keep custom header motions from markdown/text section
   autocmd FileType vimwiki onoremap ik :<c-u>execute "normal! ?^#\\+\r:nohlsearch\rwhv$bbe"<cr> 
   autocmd FileType vimwiki onoremap ak :<c-u>execute "normal! ?^#\\+\r:nohlsearch\rV"<cr>
@@ -433,6 +437,58 @@ augroup vimwiki_vim
   autocmd BufWritePre * :wa
   autocmd CursorHold * call feedkeys("\<C-\>\<C-n>")
   set updatetime=60000 
+ 
+" ============================================================================
+" VIMWIKI ZETTELKASTEN CONFIGURATION
+" ============================================================================
+
+" This creates a custom Zettel header for each new note in the ~/vimwiki/ directory
+  autocmd BufNewFile ~/vimwiki/**/*.md call InsertZettelHeader()
+
+"  Creates a header for each note for easier tagging and searching
+function! InsertZettelHeader()
+    " If the first line is already '---', stop the function
+    if getline(1) == '---'
+        echo "Zettel Header already exists!"
+        return
+    endif
+    
+    " Generate metadata variables
+    let l:id    = strftime('%Y%m%d%H%M')
+    let l:date  = strftime('%Y-%m-%d')
+    let l:title = expand('%:t:r') 
+
+    " Define the YAML and Markdown template
+    let l:template = [
+        \ '---',
+        \ 'id:      ' . l:id,
+        \ 'title:   "' . l:title . '"',
+        \ 'tags:    [#writing, ]',
+        \ 'date:    ' . l:date,
+        \ 'source:  ',
+        \ 'status:  #fleeting',
+        \ '---',
+        \ '',
+        \ '# ' . l:title,
+        \ ''
+        \ ]
+    
+    " Insert the template at the start of the file (pushing content down if it's an
+    " existing file
+    call append(0, l:template)
+    
+    " Place cursor inside the tag brackets on line 4
+    execute "normal! 4G$hi"
+endfunction
+
+" 3. SEARCH & NAVIGATION MAPPINGS
+" Search for hashtags inside your YAML headers 
+nnoremap <leader>st :vimgrep /tags:.*#\w\+/ ~/vimwiki/**/*.md \| copen
+
+" Jump to the note matching the ID under your cursor
+nnoremap <leader>fi :vimgrep /id:.*<C-R>=expand('<cword>')<cr>/ ~/vimwiki/**/*.md \| copen
+
+" ============================================================================
 
 augroup END
 " }}}
