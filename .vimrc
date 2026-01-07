@@ -428,8 +428,8 @@ augroup vimwiki_vim
   
   autocmd FileType vimwiki set makeprg=pandoc\ -f\ markdown\ -t\ docx\ %\ -o\ %:h/$*
 
-" Initial formatting when creating or opening a .wiki file
-  autocmd BufNewFile,BufRead *.wiki setlocal nonumber spell
+" Initial formatting when creating or opening vimwiki .md files
+  autocmd BufNewFile,BufRead *.md setlocal nonumber spell
   
  " TODO Automatically write the buffer every 60 seconds
   autocmd BufWritePre * :wa
@@ -501,16 +501,8 @@ augroup END
 
 " work-specific -------------- {{{
 
-" Aleo
-autocmd BufNewFile  *_update.wiki 0r ~/Desktop/Career/Aleo/update_template.md
-autocmd BufNewFile  *_jd.md 0r ~/Desktop/Career/Aleo/Recruiting/jd_template.md
-autocmd BufNewFile  *_prd.md 0r ~/Desktop/Career/Aleo/Product/prd_template.md
-autocmd BufNewFile  *_interview.wiki 0r ~/Desktop/Career/Aleo/Recruiting/interview_template.md
-autocmd BufNewFile  *_leader_weekly.wiki 0r ~/Desktop/Career/Aleo/leader_weekly.md
-autocmd BufNewFile  *_call_notes.wiki 0r ~/Desktop/Career/Aleo/call_notes.md
-
 " P11
-autocmd BufNewFile  *_init.wiki 0r ~/Desktop/Career/P11/initial_counseling_template.md
+autocmd BufNewFile  *_init.md 0r ~/Desktop/Career/P11/initial_counseling_template.md
 
 iabbrev update_item ### Item ###<cr>* **Summary**: <cr><bs>* **Next Steps**: <cr><bs>* **Recommendation**: 
 
