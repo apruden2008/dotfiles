@@ -264,9 +264,7 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_generate_on_write = 1
 
 " 3. Show the status in the Vim status line (optional, but helpful) TODO set
-if exists('*gutentags#statusline')
-    set statusline+=%{gutentags#statusline()}
-endif
+" vim-airline has built-in gutentags integration, so no manual statusline config needed
 
 " }}}
 
@@ -461,15 +459,13 @@ function! InsertZettelHeader()
     " Define the YAML and Markdown template
     let l:template = [
         \ '---',
-        \ 'id:      ' . l:id,
-        \ 'title:   "' . l:title . '"',
-        \ 'tags:    [#writing, ]',
-        \ 'date:    ' . l:date,
-        \ 'source:  ',
-        \ 'status:  #fleeting',
+        \ 'id: ' . l:id,
+        \ 'title: "' . l:title . '"',
+        \ 'tags: []',
+        \ 'date: ' . l:date,
+        \ 'source: ',
+        \ 'status: :seed:',
         \ '---',
-        \ '',
-        \ '# ' . l:title,
         \ ''
         \ ]
     
@@ -480,6 +476,8 @@ function! InsertZettelHeader()
     " Place cursor inside the tag brackets on line 4
     execute "normal! 4G$hi"
 endfunction
+
+nnoremap <leader>zh :call InsertZettelHeader()<CR>
 
 " 3. SEARCH & NAVIGATION MAPPINGS
 " Search for hashtags inside your YAML headers 
