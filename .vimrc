@@ -132,13 +132,71 @@ colo solarized
 " Adjust textwidth to allow for easier buffer copying from Vim
 nnoremap <leader>tw :call ToggleTextWidth()<cr>
 
-function! ToggleTextWidth() 
-  if &textwidth==90 
-    setlocal textwidth=900 
-  else 
-    setlocal textwidth=90
-  endif 
-  normal! gggqG
+function! ToggleTextWidth()
+    " 1. Toggle the variable
+    if &textwidth == 90
+        setlocal textwidth=900
+        echo "Text Width: UNWRAPPED (900)"
+    else
+        setlocal textwidth=90
+        echo "Text Width: WRAPPED (90)"
+    endif
+
+    let l:save_view = winsaveview()
+
+    " 2. Calculate Body Start (Skip YAML)
+    call cursor(1,1)
+    let l:scan_start = 1
+    if getline(1) =~ '^---'
+        let l:yaml_end = search('^---$', 'nW')
+        if l:yaml_end > 1
+            let l:scan_start = l:yaml_end + 1
+        else
+            let l:scan_start = 1
+        endif
+    endif
+
+    " 3. PASS 1: Identify Text Blocks
+    " We build a list of [start, end] pairs for every paragraph
+    let l:blocks = []
+    let l:in_block = 0
+    let l:block_start = 0
+
+    for l:lnum in range(l:scan_start, line('$'))
+        let l:line = getline(l:lnum)
+        
+        " Define what constitutes a 'break' (Headers or Blank Lines)
+        let l:is_break = (l:line =~ '^#' || l:line =~ '^\s*$')
+
+        if l:in_block
+            if l:is_break
+                " We just finished a block. Record it.
+                call add(l:blocks, [l:block_start, l:lnum - 1])
+                let l:in_block = 0
+            endif
+        else
+            if !l:is_break
+                " We just hit text. Start a new block.
+                let l:block_start = l:lnum
+                let l:in_block = 1
+            endif
+        endif
+    endfor
+
+    " Catch the final block if the file ends with text
+    if l:in_block
+        call add(l:blocks, [l:block_start, line('$')])
+    endif
+
+    " 4. PASS 2: Format in REVERSE
+    " Formatting from bottom to top prevents line-number drift errors
+    call reverse(l:blocks)
+
+    for l:range in l:blocks
+      execute "normal! " . l:range[0] . "GV" . l:range[1] . "Ggq"
+    endfor
+
+    call winrestview(l:save_view)
 endfunction
 
 nnoremap <leader>y "+yy
@@ -169,6 +227,9 @@ endfunction
 
 " Set default grepprg as ripgrep
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
+"
+" Use Ripgrep to show a clickable Table of Contents in the Quickfix window
+nnoremap <leader>tc :cexpr system('rg --vimgrep "^#+\s" ' . expand('%')) <bar> copen<cr>
 
 " Key Remapping ----------------------------- {{{
 " Toggle search highlighting
@@ -419,9 +480,6 @@ augroup vimwiki_vim
   
  " Reformat paragraph with space bar
   autocmd FileType vimwiki nnoremap <SPACE> gqap
-  
- " Reformat for export
-  autocmd Filetype text nnoremap <leader>tw gggqG
   
  " Create horizontal rule 
   autocmd FileType vimwiki iabbrev hr <cr>---
