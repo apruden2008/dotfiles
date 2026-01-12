@@ -135,3 +135,4 @@ typeset -U path fpath
 
 # 8. Finally, source p10k config
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="$HOME/.local/bin:$PATH"
