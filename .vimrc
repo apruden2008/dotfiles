@@ -148,6 +148,8 @@ function! ToggleTextWidth()
     call cursor(1,1)
     let l:scan_start = 1
     if getline(1) =~ '^---'
+        " Move to line 2 to skip the opening --- delimiter
+        call cursor(2, 1)
         let l:yaml_end = search('^---$', 'nW')
         if l:yaml_end > 1
             let l:scan_start = l:yaml_end + 1
