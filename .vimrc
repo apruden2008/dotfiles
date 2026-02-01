@@ -559,6 +559,27 @@ augroup filetype_vim
 augroup END
 " }}}"
 
+function! SumTaskNumbers() range
+    let l:total = 0
+    " a:firstline and a:lastline are special variables provided by 'range'
+    let l:lines = getline(a:firstline, a:lastline)
+    
+    for l:line in l:lines
+        " Find digits at the very end of the line
+        let l:num = matchstr(l:line, '\d\+$')
+        if l:num != ''
+            let l:total += str2nr(l:num)
+        endif
+    endfor
+    
+    " Redraw to ensure the message isn't cleared by window scrolling
+    redraw
+    echo "Total: " . l:total
+endfunction
+
+" Create a command for easy access
+command! -range SumTasks <line1>,<line2>call SumTaskNumbers()
+
 " work-specific -------------- {{{
 
 " P11
