@@ -524,7 +524,6 @@ function! InsertZettelHeader()
         \ 'tags: []',
         \ 'date: ' . l:date,
         \ 'source: ',
-        \ 'status: :seed:',
         \ '---',
         \ ''
         \ ]
