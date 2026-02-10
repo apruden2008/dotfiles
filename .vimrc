@@ -456,7 +456,12 @@ augroup vimwiki_vim
 "  \ 'auto_tags': 1,
 "  \ 'auto_toc': 1}
 
-  let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes, wiki_p11]
+  let wiki_writing = {
+    \ 'path': '~/vimwiki/writing',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md'}
+
+  let g:vimwiki_list = [wiki_personal, wiki_aleo, wiki_classnotes, wiki_p11, wiki_writing]
 
   " Don't force all .md files to be vimwiki
   let g:vimwiki_global_ext = 0 
@@ -544,6 +549,35 @@ nnoremap <leader>st :vimgrep /tags:.*#\w\+/ ~/vimwiki/**/*.md \| copen
 
 " Jump to the note matching the ID under your cursor
 nnoremap <leader>fi :vimgrep /id:.*<C-R>=expand('<cword>')<cr>/ ~/vimwiki/**/*.md \| copen
+
+" ============================================================================
+" WRITING ARCHIVE CONFIGURATION
+" ============================================================================
+
+" Auto-insert frontmatter header for new files in writing archive
+  autocmd BufNewFile ~/vimwiki/writing/**/*.md call InsertWritingHeader()
+
+function! InsertWritingHeader()
+    if getline(1) == '---'
+        return
+    endif
+    let l:date  = strftime('%Y-%m-%d')
+    let l:title = expand('%:t:r')
+    let l:template = [
+        \ '---',
+        \ 'title: "' . l:title . '"',
+        \ 'date: ' . l:date,
+        \ 'channel: ',
+        \ 'type: ',
+        \ 'tags: []',
+        \ '---',
+        \ '' ]
+    call append(0, l:template)
+    execute "normal! 4G$a"
+endfunction
+
+" Search tags in writing archive
+nnoremap <leader>sw :vimgrep /tags:.*\w\+/ ~/vimwiki/writing/**/*.md \| copen<CR>
 
 " ============================================================================
 
