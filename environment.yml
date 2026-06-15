@@ -1,0 +1,15 @@
+name: standard
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14
+  - flask
+  - jupyter
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - seaborn
+  - pip
+  - pip:
+      - pytest==9.0.3

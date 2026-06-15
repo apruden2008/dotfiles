@@ -1,6 +1,6 @@
 channels:
   - conda-forge
-  - defaults
+channel_priority: strict
 envs_dirs:
   - $HOME/micromamba/envs
 pkgs_dirs:
