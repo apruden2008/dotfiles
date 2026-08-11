@@ -25,8 +25,20 @@ plugins=(
   fzf
 )
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
+# fzf key bindings and fuzzy completion.
+# `fzf --zsh` needs fzf >= 0.48 (Homebrew is current); Debian bookworm ships
+# 0.38 and installs the shell files under /usr/share/doc/fzf/examples instead.
+if command -v fzf >/dev/null 2>&1; then
+  if fzf --zsh >/dev/null 2>&1; then
+    source <(fzf --zsh)
+  else
+    for _fzf_dir in /usr/share/doc/fzf/examples /usr/share/fzf; do
+      [[ -f "$_fzf_dir/key-bindings.zsh" ]] && source "$_fzf_dir/key-bindings.zsh"
+      [[ -f "$_fzf_dir/completion.zsh" ]]   && source "$_fzf_dir/completion.zsh"
+    done
+    unset _fzf_dir
+  fi
+fi
 
 # Set default FZF command to rg
 export FZF_DEFAULT_COMMAND='rg'
@@ -103,22 +115,32 @@ alias tk="tmux kill-server"
 alias config="$(which git) --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias ctags='$(brew --prefix)/bin/ctags' # replace BSD default with universal ctags
 
-# Rust configuration
-. "$HOME/.cargo/env"
+# Toolchains.
+#
+# Each block is guarded so this file works on a machine where the toolchain is
+# not installed yet. Without the guards, every shell opened before
+# bootstrap.sh's `langs` step finishes prints errors, and anything that sources
+# this file under `set -e` aborts outright.
 
-# Node.js and nvm configuration
+# Rust
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+# Node.js and nvm
 export NVM_DIR="$HOME/.nvm"
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-[[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  source "$NVM_DIR/nvm.sh"
+  [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+  # --silent: this runs on every shell and is otherwise chatty.
+  nvm use --lts --silent
+fi
 
-# Set default Node.js version
-nvm use --lts
-
-# Micromamba configuration
+# Micromamba
 export MAMBA_ROOT_PREFIX="$HOME/micromamba"
 export PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"
-eval "$(micromamba shell hook --shell=zsh)"
-micromamba activate standard
+if command -v micromamba >/dev/null 2>&1; then
+  eval "$(micromamba shell hook --shell=zsh)"
+  micromamba activate standard 2>/dev/null
+fi
 
 # Package manager configuration
 if [[ "$(uname)" == "Darwin" ]]; then
